@@ -7,25 +7,21 @@
 //declare dependency
 require('./bootstrap');
 import router from './routes';
+import Index from './Index';
 import VueRouter from 'vue-router';
 
 
 
 window.Vue = require('vue').default;
 
-//initializing component
-Vue.component('example-component', 
-               require('./components/ExampleComponent.vue').default
-              );
-
-Vue.component('example-2', 
-              require('./components/Example2.vue').default
-             );
-
-Vue.use(VueRouter);
+ Vue.use(VueRouter);
 
 //pointing to the single page welcome.blade.php where <div id="app"> is located
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    components: {
+
+        index: Index
+    }
 });

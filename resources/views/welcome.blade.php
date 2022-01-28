@@ -12,7 +12,7 @@
     <script src="{{ 'js/app.js' }}" defer></script>
     <body class="antialiased">
         <div id="app">
-            <router-view></router-view>
+            <index></index>
         </div>
     </body>
 </html>
