@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use app\Models\Bookable;
 
 class BookablesTableSeeder extends Seeder
 {
@@ -15,5 +16,6 @@ class BookablesTableSeeder extends Seeder
     {
         //
          \App\Models\Bookable::factory(100)->create();
+        //  Bookable::factory(100)->create();
     }
 }
