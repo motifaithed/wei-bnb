@@ -7,7 +7,8 @@
                 <input type="text" 
                        name="from" 
                        class="form-control form-control-sm" 
-                       placeholder="Start Date" />
+                       placeholder="Start Date" 
+                       v-model="from"/>
                 
             </div>
             <div class="form-group col-md-6">
@@ -15,7 +16,8 @@
                <input type="text" 
                        name="to" 
                        class="form-control form-control-sm" 
-                       placeholder="End Date" />
+                       placeholder="End Date" 
+                       v-model="to"/>
             </div>
         </div>
         <div class="d-grid gap-2">
@@ -24,6 +26,18 @@
     </div>
     
 </template>
+<script>
+export default {
+    data(){
+
+        return {
+
+            from: null,
+            to: null
+        } 
+    }
+}
+</script>
 <style scoped>
     label{
         font-size: 0.7rem;
