@@ -7,7 +7,7 @@
             <div class="row mb-4" v-for="row in rows" :key="'row' + row">
                 <div class="col" v-for="(bookable, column) in bookablesInRow(row)" :key="'row' + row + column">
                     <bookable-list-item :item-title="bookable.title" 
-                                        :item-content="bookable.content" 
+                                        :item-description="bookable.description" 
                                         :item-price="1000"
                                         ></bookable-list-item>
                 </div>
@@ -52,54 +52,30 @@ export default {
     },
     created(){
 
-        const p = new Promise((resolve,reject)=>{
-            console.log(resolve);
-            console.log(reject);
+        // const p = new Promise((resolve,reject)=>{
+        //     console.log(resolve);
+        //     console.log(reject);
 
-            setTimeout(()=>{
-                resolve('hello');
-            },3000)
-        }).then(result =>{
-            console.log(`Success ${result}`)
-        }).catch(result =>{
-            console.log(`Error ${result}`)
-        });
+        //     setTimeout(()=>{
+        //         resolve('hello');
+        //     },3000)
+        // }).then(result =>{
+        //     console.log(`Success ${result}`)
+        // }).catch(result =>{
+        //     console.log(`Error ${result}`)
+        // });
 
-        console.log(p);
+        // console.log(p);
+
+        
         
         this.loading = true;
-        setTimeout(()=>{
-          this.bookables = [{
-              title: 'This is the Edited One',
-              content: 'This is the edited content'
-          },
-          {
-              title: 'This is the Edited Two',
-              content: 'This is the edited content Two'
-          },
-          {
-              title: 'This is the Edited Three',
-              content: 'This is the edited content Three'
-          },
-          {
-              title: 'This is the Edited Three',
-              content: 'This is the edited content Three'
-          },
-          {
-              title: 'This is the Edited Three',
-              content: 'This is the edited content Three'
-          },
-          {
-              title: 'This is the Edited Three',
-              content: 'This is the edited content Three'
-          },
-          {
-              title: 'This is the Edited Three',
-              content: 'This is the edited content Three'
-          }]
-          this.loading = false;
-          
-        },2000);
+
+        const request = axios.get('/api/bookables').then(response =>{
+            this.bookables = response.data;
+            this.loading = false;
+        });
+        console.log(request);
         
         
     },

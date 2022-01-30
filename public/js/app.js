@@ -5273,7 +5273,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     'itemTitle': String,
-    'itemContent': String,
+    'itemDescription': String,
     'itemPrice': Number
   }
 });
@@ -5338,44 +5338,24 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    var p = new Promise(function (resolve, reject) {
-      console.log(resolve);
-      console.log(reject);
-      setTimeout(function () {
-        resolve('hello');
-      }, 3000);
-    }).then(function (result) {
-      console.log("Success ".concat(result));
-    })["catch"](function (result) {
-      console.log("Error ".concat(result));
-    });
-    console.log(p);
+    // const p = new Promise((resolve,reject)=>{
+    //     console.log(resolve);
+    //     console.log(reject);
+    //     setTimeout(()=>{
+    //         resolve('hello');
+    //     },3000)
+    // }).then(result =>{
+    //     console.log(`Success ${result}`)
+    // }).catch(result =>{
+    //     console.log(`Error ${result}`)
+    // });
+    // console.log(p);
     this.loading = true;
-    setTimeout(function () {
-      _this.bookables = [{
-        title: 'This is the Edited One',
-        content: 'This is the edited content'
-      }, {
-        title: 'This is the Edited Two',
-        content: 'This is the edited content Two'
-      }, {
-        title: 'This is the Edited Three',
-        content: 'This is the edited content Three'
-      }, {
-        title: 'This is the Edited Three',
-        content: 'This is the edited content Three'
-      }, {
-        title: 'This is the Edited Three',
-        content: 'This is the edited content Three'
-      }, {
-        title: 'This is the Edited Three',
-        content: 'This is the edited content Three'
-      }, {
-        title: 'This is the Edited Three',
-        content: 'This is the edited content Three'
-      }];
+    var request = axios.get('/api/bookables').then(function (response) {
+      _this.bookables = response.data;
       _this.loading = false;
-    }, 2000);
+    });
+    console.log(request);
   } // beforeMount(){
   //     console.log('before mount');
   // },
@@ -28331,7 +28311,9 @@ var render = function () {
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
       _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemContent))]),
+      _c("p", { staticClass: "card-text" }, [
+        _vm._v(_vm._s(_vm.itemDescription)),
+      ]),
     ]),
   ])
 }
@@ -28376,7 +28358,7 @@ var render = function () {
                       _c("bookable-list-item", {
                         attrs: {
                           "item-title": bookable.title,
-                          "item-content": bookable.content,
+                          "item-description": bookable.description,
                           "item-price": 1000,
                         },
                       }),
