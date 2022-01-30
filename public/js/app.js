@@ -5304,9 +5304,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    'itemTitle': String,
-    'itemDescription': String,
-    'itemPrice': Number
+    'title': String,
+    'description': String,
+    'id': Number
   }
 });
 
@@ -5324,6 +5324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _BookableListItem_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookableListItem.vue */ "./resources/js/bookables/BookableListItem.vue");
+//
+//
 //
 //
 //
@@ -28443,11 +28445,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card w-100" }, [
     _c("div", { staticClass: "card-body" }, [
-      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
+      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
       _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v(_vm._s(_vm.itemDescription)),
-      ]),
+      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.description))]),
     ]),
   ])
 }
@@ -28492,13 +28492,10 @@ var render = function () {
                       staticClass: "col d-flex align-items-stretch",
                     },
                     [
-                      _c("bookable-list-item", {
-                        attrs: {
-                          "item-title": bookable.title,
-                          "item-description": bookable.description,
-                          "item-price": 1000,
-                        },
-                      }),
+                      _c(
+                        "bookable-list-item",
+                        _vm._b({}, "bookable-list-item", bookable, false)
+                      ),
                     ],
                     1
                   )

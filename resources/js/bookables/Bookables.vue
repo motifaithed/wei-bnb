@@ -6,10 +6,12 @@
         <div v-else>
             <div class="row mb-4" v-for="row in rows" :key="'row' + row">
                 <div class="col d-flex align-items-stretch" v-for="(bookable, column) in bookablesInRow(row)" :key="'row' + row + column">
-                    <bookable-list-item :item-title="bookable.title" 
-                                        :item-description="bookable.description" 
-                                        :item-price="1000"
-                                        ></bookable-list-item>
+                    <!-- <bookable-list-item :title="bookable.title" 
+                                        :description="bookable.description" 
+                                        :id="bookable.id"
+                                        ></bookable-list-item> -->
+                    <bookable-list-item v-bind="bookable">
+                    </bookable-list-item>
                 </div>
                 <div class="col" v-for="p in placeholdersInRow(row)" :key="'row' + row + p"></div>
             </div>
