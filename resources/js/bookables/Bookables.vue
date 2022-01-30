@@ -1,14 +1,17 @@
 <template>
     <div>
-        <bookable-list-item :item-title="bookable1.title" 
+        <bookable-list-item v-if ="bookable1"
+                            :item-title="bookable1.title" 
                             :item-content="bookable1.content" 
                             :item-price="1000"></bookable-list-item>
 
-        <bookable-list-item :item-title="bookable2.title" 
+        <bookable-list-item v-if="bookable2"
+                            :item-title="bookable2.title" 
                             :item-content="bookable2.content" 
                             :item-price="1500"></bookable-list-item>
         
-        <bookable-list-item :item-title="bookable3.title" 
+        <bookable-list-item v-if="bookable3"
+                            :item-title="bookable3.title" 
                             :item-content="bookable3.content" 
                             :item-price="2000"></bookable-list-item>
     </div>
@@ -31,10 +34,7 @@ export default {
         }
     },
     created(){
-        console.log(' created');
-        console.log(this.bookable1);
-        console.log(this.bookable2);
-
+        
         setTimeout(()=>{
           this.bookable1 = {
               title: 'This is the Edited One',
@@ -48,7 +48,8 @@ export default {
               title: 'This is the Edited Three',
               content: 'This is the edited content Three'
           }
-        },5000);
+        },2000);
+
     },
     // beforeMount(){
     //     console.log('before mount');
