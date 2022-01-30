@@ -5338,6 +5338,18 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
+    var p = new Promise(function (resolve, reject) {
+      console.log(resolve);
+      console.log(reject);
+      setTimeout(function () {
+        resolve('hello');
+      }, 3000);
+    }).then(function (result) {
+      console.log("Success ".concat(result));
+    })["catch"](function (result) {
+      console.log("Error ".concat(result));
+    });
+    console.log(p);
     this.loading = true;
     setTimeout(function () {
       _this.bookables = [{
