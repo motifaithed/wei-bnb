@@ -20,6 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('bookables', function(Request $request){
-    
+
     return Bookable::all();
+});
+
+Route::get('bookables/{id}', function (Request $request, $id){
+
+    return Bookable::find($id);
 });
