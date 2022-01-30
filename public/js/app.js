@@ -5304,6 +5304,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5314,14 +5318,9 @@ __webpack_require__.r(__webpack_exports__);
   // },
   data: function data() {
     return {
-      bookable1: {
-        title: 'this is the new thing',
-        content: 'this is the new thing content'
-      },
-      bookable2: {
-        title: 'this is the new thing 2',
-        content: 'this is the new thing content 2'
-      }
+      bookable1: null,
+      bookable2: null,
+      bookable3: null
     };
   },
   created: function created() {
@@ -5331,8 +5330,18 @@ __webpack_require__.r(__webpack_exports__);
     console.log(this.bookable1);
     console.log(this.bookable2);
     setTimeout(function () {
-      _this.bookable1.title = 'This is the edited title one';
-      _this.bookable2.title = 'This is the edited title 2';
+      _this.bookable1 = {
+        title: 'This is the Edited One',
+        content: 'This is the edited content'
+      };
+      _this.bookable2 = {
+        title: 'This is the Edited Two',
+        content: 'This is the edited content Two'
+      };
+      _this.bookable3 = {
+        title: 'This is the Edited Three',
+        content: 'This is the edited content Three'
+      };
     }, 5000);
   } // beforeMount(){
   //     console.log('before mount');
@@ -28330,6 +28339,14 @@ var render = function () {
           "item-title": _vm.bookable2.title,
           "item-content": _vm.bookable2.content,
           "item-price": 1500,
+        },
+      }),
+      _vm._v(" "),
+      _c("bookable-list-item", {
+        attrs: {
+          "item-title": _vm.bookable3.title,
+          "item-content": _vm.bookable3.content,
+          "item-price": 2000,
         },
       }),
     ],

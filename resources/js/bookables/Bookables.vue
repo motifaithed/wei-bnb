@@ -7,6 +7,10 @@
         <bookable-list-item :item-title="bookable2.title" 
                             :item-content="bookable2.content" 
                             :item-price="1500"></bookable-list-item>
+        
+        <bookable-list-item :item-title="bookable3.title" 
+                            :item-content="bookable3.content" 
+                            :item-price="2000"></bookable-list-item>
     </div>
 </template>
 <script>
@@ -21,14 +25,9 @@ export default {
     // },
     data(){
         return{
-            bookable1:{
-                title:'this is the new thing',
-                content:'this is the new thing content',
-            },
-            bookable2:{
-                title:'this is the new thing 2',
-                content:'this is the new thing content 2',
-            }
+            bookable1:null,
+            bookable2:null,
+            bookable3:null
         }
     },
     created(){
@@ -37,8 +36,18 @@ export default {
         console.log(this.bookable2);
 
         setTimeout(()=>{
-            this.bookable1.title = 'This is the edited title one';
-            this.bookable2.title = 'This is the edited title 2';
+          this.bookable1 = {
+              title: 'This is the Edited One',
+              content: 'This is the edited content'
+          }
+          this.bookable2 = {
+              title: 'This is the Edited Two',
+              content: 'This is the edited content Two'
+          }
+          this.bookable3 = {
+              title: 'This is the Edited Three',
+              content: 'This is the edited content Three'
+          }
         },5000);
     },
     // beforeMount(){
