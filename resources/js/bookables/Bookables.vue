@@ -23,9 +23,6 @@ export default {
     components: {
         BookableListItem: BookableListItem
     },
-    // beforeCreate(){
-    //     console.log('before create');
-    // },
     data(){
         return{
 

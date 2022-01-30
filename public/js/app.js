@@ -5315,9 +5315,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     BookableListItem: _BookableListItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  // beforeCreate(){
-  //     console.log('before create');
-  // },
   data: function data() {
     return {
       bookables: null,
