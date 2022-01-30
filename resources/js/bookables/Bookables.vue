@@ -27,7 +27,15 @@ export default {
         return{
 
             bookables:null,
-            loading: false
+            loading: false,
+            column: 3
+        }
+    },
+    computed:{
+        rows (){
+
+            return this.bookables == null ? 0 : Math.ceil(this.bookables.length/this.column);
+
         }
     },
     created(){
@@ -44,10 +52,27 @@ export default {
           {
               title: 'This is the Edited Three',
               content: 'This is the edited content Three'
+          },
+          {
+              title: 'This is the Edited Three',
+              content: 'This is the edited content Three'
+          },
+          {
+              title: 'This is the Edited Three',
+              content: 'This is the edited content Three'
+          },
+          {
+              title: 'This is the Edited Three',
+              content: 'This is the edited content Three'
+          },
+          {
+              title: 'This is the Edited Three',
+              content: 'This is the edited content Three'
           }]
           this.loading = false;
+          
         },2000);
-
+        
         
     },
     // beforeMount(){

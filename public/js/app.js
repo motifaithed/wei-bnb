@@ -5268,14 +5268,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     'itemTitle': String,
     'itemContent': String,
     'itemPrice': Number
-  },
-  mounted: function mounted() {
-    console.log(this.itemTitle);
   }
 });
 
@@ -5319,8 +5318,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       bookables: null,
-      loading: false
+      loading: false,
+      column: 3
     };
+  },
+  computed: {
+    rows: function rows() {
+      return this.bookables == null ? 0 : Math.ceil(this.bookables.length / this.column);
+    }
   },
   created: function created() {
     var _this = this;
@@ -5333,6 +5338,18 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'This is the Edited Two',
         content: 'This is the edited content Two'
+      }, {
+        title: 'This is the Edited Three',
+        content: 'This is the edited content Three'
+      }, {
+        title: 'This is the Edited Three',
+        content: 'This is the edited content Three'
+      }, {
+        title: 'This is the Edited Three',
+        content: 'This is the edited content Three'
+      }, {
+        title: 'This is the Edited Three',
+        content: 'This is the edited content Three'
       }, {
         title: 'This is the Edited Three',
         content: 'This is the edited content Three'
@@ -28290,10 +28307,12 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v(_vm._s(_vm.itemTitle))]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.itemContent))]),
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemContent))]),
+    ]),
   ])
 }
 var staticRenderFns = []
