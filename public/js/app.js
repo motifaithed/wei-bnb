@@ -5273,6 +5273,9 @@ __webpack_require__.r(__webpack_exports__);
     'itemTitle': String,
     'itemContent': String,
     'itemPrice': Number
+  },
+  mounted: function mounted() {
+    console.log(this.itemTitle);
   }
 });
 
@@ -5300,6 +5303,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     BookableListItem: _BookableListItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  beforeCreate: function beforeCreate() {
+    console.log('before create');
+  },
+  created: function created() {
+    console.log(' created');
+  },
+  beforeMount: function beforeMount() {
+    console.log('before mount');
+  },
+  mounted: function mounted() {
+    console.log('mounted');
+  },
+  // beforeUpdate(){
+  //     console.log('before update');
+  // },
+  // updated(){
+  //     console.log('updated');
+  // },
+  beforeDestroy: function beforeDestroy() {
+    console.log('before destroy');
+  },
+  destroyed: function destroyed() {
+    console.log('destroyed');
   }
 });
 
