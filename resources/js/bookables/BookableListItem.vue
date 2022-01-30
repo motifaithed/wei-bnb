@@ -6,7 +6,9 @@
 </template>
 <script>
 export default {
-    props:{'itemTitle': String,'itemContent':String, 'itemPrice':Number},
+    props:{ 'itemTitle': String, 
+            'itemContent':String,  
+            'itemPrice':Number},
     mounted(){
         console.log(this.itemTitle);
     }

@@ -5299,35 +5299,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     BookableListItem: _BookableListItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  beforeCreate: function beforeCreate() {
-    console.log('before create');
+  // beforeCreate(){
+  //     console.log('before create');
+  // },
+  data: function data() {
+    return {
+      bookable1: {
+        title: 'this is the new thing',
+        content: 'this is the new thing content'
+      },
+      bookable2: {
+        title: 'this is the new thing 2',
+        content: 'this is the new thing content 2'
+      }
+    };
   },
   created: function created() {
+    var _this = this;
+
     console.log(' created');
-  },
-  beforeMount: function beforeMount() {
-    console.log('before mount');
-  },
-  mounted: function mounted() {
-    console.log('mounted');
-  },
+    console.log(this.bookable1);
+    console.log(this.bookable2);
+    setTimeout(function () {
+      _this.bookable1.title = 'This is the edited title one';
+      _this.bookable2.title = 'This is the edited title 2';
+    }, 5000);
+  } // beforeMount(){
+  //     console.log('before mount');
+  // },
+  // mounted(){
+  //     console.log('mounted');
+  // },
   // beforeUpdate(){
   //     console.log('before update');
   // },
   // updated(){
   //     console.log('updated');
   // },
-  beforeDestroy: function beforeDestroy() {
-    console.log('before destroy');
-  },
-  destroyed: function destroyed() {
-    console.log('destroyed');
-  }
+  // beforeDestroy(){
+  //     console.log('before destroy');
+  // },
+  // destroyed(){
+  //     console.log('destroyed');
+  // }
+
 });
 
 /***/ }),
@@ -28294,16 +28319,16 @@ var render = function () {
     [
       _c("bookable-list-item", {
         attrs: {
-          "item-title": "Deca Villa 1",
-          "item-content": "this is deca villa 1",
+          "item-title": _vm.bookable1.title,
+          "item-content": _vm.bookable1.content,
           "item-price": 1000,
         },
       }),
       _vm._v(" "),
       _c("bookable-list-item", {
         attrs: {
-          "item-title": "Deca Villa 2",
-          "item-content": "this is deca villa 2",
+          "item-title": _vm.bookable2.title,
+          "item-content": _vm.bookable2.content,
           "item-price": 1500,
         },
       }),
