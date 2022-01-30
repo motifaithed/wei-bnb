@@ -20,5 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('bookables',[BookablesController::class,'index']);
-Route::get('bookables/{id}',[BookablesController::class,'show']);
+// Route::get('bookables',[BookablesController::class,'index']);
+// Route::get('bookables/{id}',[BookablesController::class,'show']);
+
+Route::apiResource('bookables', BookablesController::class)->only('index','show');
