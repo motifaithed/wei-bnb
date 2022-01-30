@@ -1,19 +1,16 @@
 <template>
     <div>
-        <bookable-list-item v-if ="bookable1"
-                            :item-title="bookable1.title" 
-                            :item-content="bookable1.content" 
-                            :item-price="1000"></bookable-list-item>
-
-        <bookable-list-item v-if="bookable2"
-                            :item-title="bookable2.title" 
-                            :item-content="bookable2.content" 
-                            :item-price="1500"></bookable-list-item>
-        
-        <bookable-list-item v-if="bookable3"
-                            :item-title="bookable3.title" 
-                            :item-content="bookable3.content" 
-                            :item-price="2000"></bookable-list-item>
+        <div v-if="loading">
+            Data is Loading...
+        </div>
+        <div v-else>
+            <bookable-list-item  v-for="(bookable,index) in bookables"
+                                :key = "index"
+                                :item-title="bookable.title" 
+                                :item-content="bookable.content" 
+                                :item-price="1000"
+                                ></bookable-list-item>
+        </div>
     </div>
 </template>
 <script>
@@ -28,28 +25,30 @@ export default {
     // },
     data(){
         return{
-            bookable1:null,
-            bookable2:null,
-            bookable3:null
+
+            bookables:null,
+            loading: false
         }
     },
     created(){
-        
+        this.loading = true;
         setTimeout(()=>{
-          this.bookable1 = {
+          this.bookables = [{
               title: 'This is the Edited One',
               content: 'This is the edited content'
-          }
-          this.bookable2 = {
+          },
+          {
               title: 'This is the Edited Two',
               content: 'This is the edited content Two'
-          }
-          this.bookable3 = {
+          },
+          {
               title: 'This is the Edited Three',
               content: 'This is the edited content Three'
-          }
+          }]
+          this.loading = false;
         },2000);
 
+        
     },
     // beforeMount(){
     //     console.log('before mount');
