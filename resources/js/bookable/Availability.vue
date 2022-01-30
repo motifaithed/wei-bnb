@@ -8,7 +8,8 @@
                        name="from" 
                        class="form-control form-control-sm" 
                        placeholder="Start Date" 
-                       v-model="from"/>
+                       v-model="from"
+                       v-on:keyup.enter="check" >
                 
             </div>
             <div class="form-group col-md-6">
@@ -17,11 +18,12 @@
                        name="to" 
                        class="form-control form-control-sm" 
                        placeholder="End Date" 
-                       v-model="to"/>
+                       v-model="to"
+                       v-on:keyup.enter="check" >
             </div>
         </div>
         <div class="d-grid gap-2">
-            <button class="btn btn-secondary">Check!</button>
+            <button class="btn btn-secondary" v-on:click="check">Check!</button>
         </div>
     </div>
     
@@ -35,6 +37,12 @@ export default {
             from: null,
             to: null
         } 
+    },
+    methods:{
+        check(){
+
+            alert('button was pressed');
+        }
     }
 }
 </script>
