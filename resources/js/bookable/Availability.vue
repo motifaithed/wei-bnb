@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="d-grid gap-2">
-            <button class="btn btn-secondary" v-on:click="check">Check!</button>
+            <button class="btn btn-secondary" v-on:click="check" :disabled="loading">Check!</button>
         </div>
     </div>
     
@@ -35,15 +35,33 @@ export default {
         return {
 
             from: null,
-            to: null
+            to: null,
+            loading: false,
+            status: null,
+            errors: null 
         } 
     },
     methods:{
         check(){
 
-            alert('button was pressed');
-        }
-    }
+                    this.loading = true;
+                    this.error = null;
+
+                    axios.get(`/api/bookables/${this.$route.params.id}/availability?from=${this.from}&to=${this.to}`)
+                    .then(response =>{
+                            this.status = response.status;
+                        })
+                    .catch(error =>{
+                        if(422 == error.response.status){
+                                this.errors = error.response.data.errors;
+                            }
+                            this.status = error.response.status;
+                        }).
+                        then(()=>{
+                        this.loading = false;
+                    })
+                }
+            }
 }
 </script>
 <style scoped>
