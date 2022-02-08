@@ -24,7 +24,8 @@ class BookableAvailabilityController extends Controller
 
         $bookable = Bookable::findorFail($id);
 
-        // dd($bookable->bookings()->betweenDates($data['from'], $data['to'])->count());
-        dd($bookable->bookings()->betweenDates($data['from'], $data['to'])->count());
+       return $bookable->availableFor($data['from'], $data['to']) 
+                ? response()->json([])
+                : response()->json([], 404);
     }
 }
