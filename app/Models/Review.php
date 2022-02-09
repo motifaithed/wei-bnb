@@ -9,8 +9,14 @@ class Review extends Model
 {
     use HasFactory;
 
+    public function bookable(){
+        $this->belongsTo(Bookable::class);
+    }
+
+    public function booking(){
+        $this->belongsTo(Booking::class);
+    }
     /* THIS APPLIES FOR MODEL WITH UUID as Unique Index instead of Int */
-    
     //tell laravel you are not using incrementing int key
     public function getIncrementing()
     {
