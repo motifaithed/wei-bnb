@@ -1,5 +1,6 @@
 <template>
     <div class="d-flex">
+        
         <i class="fas fa-star" v-for="star in fullStars " :key="'full' + star"></i>
         <i class="fas fa-star-half-alt" v-if="halfStar"></i>
         <i class="far fa-star" v-for="star in emptyStars " :key="'empty' + star"></i>
@@ -10,18 +11,18 @@ export default {
     props:{
         rating: Number,
     },
-    data(){
-        
-    },
+    
     computed:{
         fullStars(){
-            return 4;
+            return Math.round(this.rating);
         },
         halfStar(){
-            return false;
+            const fraction = Math.round((this.rating - Math.floor(this.rating))*100);
+
+            return fraction > 0 && fraction < 50;
         },
         emptyStars(){
-            return 1;
+            return 5 - Math.ceil(this.rating);
         }
     }
 }

@@ -5453,6 +5453,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 //import moment from "moment";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -5650,20 +5651,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     rating: Number
   },
-  data: function data() {},
   computed: {
     fullStars: function fullStars() {
-      return 4;
+      return Math.round(this.rating);
     },
     halfStar: function halfStar() {
-      return false;
+      var fraction = Math.round((this.rating - Math.floor(this.rating)) * 100);
+      return fraction > 0 && fraction < 50;
     },
     emptyStars: function emptyStars() {
-      return 1;
+      return 5 - Math.ceil(this.rating);
     }
   }
 });
