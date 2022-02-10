@@ -50977,8 +50977,10 @@ var render = function () {
                     "div",
                     { staticClass: "col-md-6 d-flex justify-content-end" },
                     [
-                      _vm._v(_vm._s(review.rating)),
-                      _c("review-rating", { attrs: { rating: review.rating } }),
+                      _c("review-rating", {
+                        staticClass: "fa-lg",
+                        attrs: { rating: review.rating },
+                      }),
                     ],
                     1
                   ),
