@@ -8,9 +8,11 @@
 require('./bootstrap');
 import router from './routes';
 import Index from './Index';
+import ReviewRating from './shared/components/ReviewRating'
 import VueRouter from 'vue-router';
 import Vue from 'vue';
 import moment from "moment";
+
 
 
 
@@ -18,6 +20,7 @@ window.Vue = require('vue').default;
 
  Vue.use(VueRouter);
  Vue.filter("fromNow", value => moment(value).fromNow());
+ Vue.component("ReviewRating", ReviewRating);
 
 //pointing to the single page welcome.blade.php where <div id="app"> is located
 const app = new Vue({
