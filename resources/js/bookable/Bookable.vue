@@ -16,12 +16,12 @@
                 </div>
             </div>
              <div class="col-md-4 pb-4">
-                <availability></availability>
+                <availability :bookable-id = "this.$route.params.id"></availability>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <review-list></review-list>
+                <review-list :bookable-id = "this.$route.params.id"></review-list>
             </div>
         </div>
         
@@ -33,6 +33,9 @@ import ReviewList from './ReviewList.vue';
 
 export default {
 
+    // props:{
+    //     bookableId
+    // },
     components:{
         
         Availability,
