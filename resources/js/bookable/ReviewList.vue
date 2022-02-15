@@ -7,7 +7,7 @@
             <div class="border-bottom d-none d-md-block" v-for="(review, index) in reviews" :key="index">
                 <div class="row pt-4">
                     <div class="col-md-6">Ronel Andaya</div>
-                    <div class="col-md-6 d-flex justify-content-end"><review-rating :rating ="review.rating" class="fa-lg"></review-rating></div>
+                    <div class="col-md-6 d-flex justify-content-end"><review-rating :value ="review.rating" class="fa-lg"></review-rating></div>
                     
                 </div>
                 <div class="row">
