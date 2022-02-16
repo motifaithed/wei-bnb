@@ -6,7 +6,7 @@
         </div>
         <div class="form-group mb-4">
             <label for="content" class="text-muted">Describe your experience with</label>
-            <textarea name="content" cols="30" rows="10" class="form-control"></textarea>
+            <textarea name="content" cols="30" rows="10" class="form-control" v-model="review.content"></textarea>
         </div>
         <div class="row">
             <button class="btn btn-lg btn-primary btn-block">Submit</button>
@@ -21,10 +21,15 @@ export default {
             review:{
             rating: 5,
             content: null
-        }
+            }
         };
         
     },
+    created(){
+        //1. If review already exists(in reviews table id)
+        //2. Fetch a booking by a review key
+        //3. Store a review
+    }
     // methods: {
     //     onRatingChanged(rating){
     //         console.log(rating);
