@@ -5624,18 +5624,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       review: {
         rating: 5,
         content: null
-      }
+      },
+      existingReview: null,
+      isLoading: false
     };
   },
-  created: function created() {//1. If review already exists(in reviews table id)
-    //2. Fetch a booking by a review key
+  created: function created() {
+    var _this = this;
+
+    this, this.isLoading = true; //1. If review already exists(in reviews table id)
+
+    axios.get("/api/reviews/".concat(this.$route.params.id)).then(function (response) {
+      _this.existingReview = response.data.data;
+    })["catch"](function (error) {}).then(function () {
+      _this.isLoading = false;
+    }); //2. Fetch a booking by a review key
     //3. Store a review
+  },
+  computed: {
+    alreadyReviewed: function alreadyReviewed() {
+      return this.existingReview != null;
+    }
   } // methods: {
   //     onRatingChanged(rating){
   //         console.log(rating);
@@ -51155,57 +51180,71 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "form-group mb-4" },
-      [
-        _c("label", { staticClass: "text-muted" }, [
-          _vm._v("Select the star rating (1 is worst - 5 is the best)"),
+    _vm.isLoading
+      ? _c("div", [_vm._v("\n        Loading...\n    ")])
+      : _c("div", [
+          _vm.alreadyReviewed
+            ? _c("div", [
+                _c("h3", [_vm._v("This booking was already reviewed!")]),
+              ])
+            : _c("div", [
+                _c(
+                  "div",
+                  { staticClass: "form-group mb-4" },
+                  [
+                    _c("label", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "Select the star rating (1 is worst - 5 is the best)"
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("review-rating", {
+                      staticClass: "fa-3x",
+                      model: {
+                        value: _vm.review.rating,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.review, "rating", $$v)
+                        },
+                        expression: "review.rating",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group mb-4" }, [
+                  _c(
+                    "label",
+                    { staticClass: "text-muted", attrs: { for: "content" } },
+                    [_vm._v("Describe your experience with")]
+                  ),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.review.content,
+                        expression: "review.content",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "content", cols: "30", rows: "10" },
+                    domProps: { value: _vm.review.content },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.review, "content", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _vm._m(0),
+              ]),
         ]),
-        _vm._v(" "),
-        _c("review-rating", {
-          staticClass: "fa-3x",
-          model: {
-            value: _vm.review.rating,
-            callback: function ($$v) {
-              _vm.$set(_vm.review, "rating", $$v)
-            },
-            expression: "review.rating",
-          },
-        }),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group mb-4" }, [
-      _c("label", { staticClass: "text-muted", attrs: { for: "content" } }, [
-        _vm._v("Describe your experience with"),
-      ]),
-      _vm._v(" "),
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.review.content,
-            expression: "review.content",
-          },
-        ],
-        staticClass: "form-control",
-        attrs: { name: "content", cols: "30", rows: "10" },
-        domProps: { value: _vm.review.content },
-        on: {
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.review, "content", $event.target.value)
-          },
-        },
-      }),
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
   ])
 }
 var staticRenderFns = [
