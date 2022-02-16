@@ -12,22 +12,30 @@ class Booking extends Model
     use HasFactory;
     protected $fillable = ['from','to'];
 
-    public function bookable(){
-
+    public function bookable()
+    {
         return $this->belongsTo(Bookable::class);
     }
 
-    public function review(){
+    public function review()
+    {
         return $this->hasOne(Review::class);
     }
     //query scope
-    public function scopeBetweenDates(Builder $query, $from, $to){
+    public function scopeBetweenDates(Builder $query, $from, $to)
+    {
         
         return $query->where('to', '>=', $from)
                      ->where('from', '<=', $to);
     }
-    protected static function boot(){
 
+    public static function findByReviewKey(string $reviewKey): ?Booking
+    {
+        return static::where('review_key', $reviewKey)->with('bookable')->get()->first();
+    }
+
+    protected static function boot()
+    {
         //required
         parent::boot();
 
