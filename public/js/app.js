@@ -5642,7 +5642,8 @@ __webpack_require__.r(__webpack_exports__);
         content: null
       },
       existingReview: null,
-      isLoading: false
+      isLoading: false,
+      booking: null
     };
   },
   created: function created() {
@@ -5652,7 +5653,13 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get("/api/reviews/".concat(this.$route.params.id)).then(function (response) {
       _this.existingReview = response.data.data;
-    })["catch"](function (error) {}).then(function () {
+    })["catch"](function (error) {
+      if (error.response && error.response.status && error.response.status == 404) {
+        return axios.get("/api/booking-by-review/".concat(_this.$route.params.id)).then(function (response) {
+          _this.booking = response.data.data;
+        });
+      }
+    }).then(function () {
       _this.isLoading = false;
     }); //2. Fetch a booking by a review key
     //3. Store a review
