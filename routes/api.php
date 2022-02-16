@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BookablesController;
 use App\Http\Controllers\Api\BookableAvailabilityController;
 use App\Http\Controllers\Api\BookableReviewController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Models\Bookable;
 
 use Illuminate\Http\Request;
@@ -29,3 +30,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('bookables', BookablesController::class)->only('index','show');
 Route::get('bookables/{bookable}/availability', BookableAvailabilityController::class)->name('bookables.availability.show');
 Route::get('bookables/{bookable}/review', BookableReviewController::class)->name('bookables.reviews.index');
+Route::apiResource('reviews', ReviewController::class)->only('show');
