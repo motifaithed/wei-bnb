@@ -1,50 +1,57 @@
 <template>
     <div>
-        <div class="row">
-            <div :class="[{'col-md-4': isLoading || !alreadyReviewed},{'d-none': !isLoading && alreadyReviewed }]">
-                <div class="card">
-                    <div class="card-body">
-                        <div v-if="isLoading">
-                            Loading...
-                        </div>
-                        <div v-else>
-                            <p>
-                                You stayed at <router-link :to="{name:'bookable', params:'id:booking.bookable.bookable_id'}">{{booking.bookable.title}}</router-link>
-                            </p>
-                            <p>From {{booking.from}} to {{booking.to}}</p>
+        <div>
+            <div class="row" v-if="errorCheck">
+                <h3>There was an error! Please try again later</h3>
+            </div>
+            <div class="row" v-else>
+                <div :class="[{'col-md-4': twoColumns},{'d-none': oneColumn }]">
+                    <div class="card">
+                        <div class="card-body">
+                            <div v-if="isLoading">
+                                Loading...
+                            </div>
+                            <div v-if="hasBooking">
+                                <p>
+                                    You stayed at <router-link :to="{name:'bookable', params:'id:booking.bookable.bookable_id'}">{{booking.bookable.title}}</router-link>
+                                </p>
+                                <p>From {{booking.from}} to {{booking.to}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div :class="[{'col-md-8': isLoading || !alreadyReviewed},{'col-md-12': !isLoading && alreadyReviewed}]">
-                <div v-if="isLoading">
-                    Loading...
-                </div>
-                <div v-else>
-                    <div v-if="alreadyReviewed">
-                    <h3>This booking was already reviewed!</h3>
+                <div :class="[{'col-md-8': twoColumns || !alreadyReviewed},{'col-md-12': oneColumn}]">
+                    <div v-if="isLoading">
+                        Loading...
                     </div>
                     <div v-else>
-                        <div class="form-group mb-4">
-                            <label class="text-muted">Select the star rating (1 is worst - 5 is the best)</label>
-                            <review-rating class="fa-3x" v-model="review.rating"></review-rating>
+                        <div v-if="alreadyReviewed">
+                        <h3>This booking was already reviewed!</h3>
                         </div>
-                        <div class="form-group mb-4">
-                            <label for="content" class="text-muted">Describe your experience with</label>
-                            <textarea name="content" cols="30" rows="10" class="form-control" v-model="review.content"></textarea>
-                        </div>
-                        <div class="row">
-                            <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                        <div v-else>
+                            <div class="form-group mb-4">
+                                <label class="text-muted">Select the star rating (1 is worst - 5 is the best)</label>
+                                <review-rating class="fa-3x" v-model="review.rating"></review-rating>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="content" class="text-muted">Describe your experience with</label>
+                                <textarea name="content" cols="30" rows="10" class="form-control" v-model="review.content"></textarea>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
 </template>
 <script>
+import {is404} from '../shared/utils/response';
+
 export default {
+
     data(){
 
         return {
@@ -54,7 +61,8 @@ export default {
             },
             existingReview:null,
             isLoading: false,
-            booking: null
+            booking: null,
+            errorCheck: false
         };
         
     },
@@ -65,13 +73,21 @@ export default {
              .then(response =>{
                  this.existingReview = response.data.data;
            }).catch(error =>{
-               if(error.response && error.response.status && error.response.status == 404){
+               if(is404(error)){
                     //2. Fetch a booking by a review key
                    return axios.get(`/api/booking-by-review/${this.$route.params.id}`)
                                .then(response =>{
                                    this.booking = response.data.data;
+                               }).catch(error =>{
+
+                                   this.errorCheck = !is404(error);
+                                //    is404(error) ? {} : (this.errorCheck = true);
+                                //    if(!is404(error)){
+                                //        this.errorCheck = true;
+                                //    }
                                })
                }
+            
            }).then(()=>{
                  this.isLoading = false;
            });
@@ -87,6 +103,12 @@ export default {
         },
         hasBooking(){
             return this.booking != null;
+        },
+        oneColumn(){
+            return !this.isLoading && this.alreadyReviewed
+        },
+        twoColumns(){
+            return this.isLoading || !this.alreadyReviewed
         }
     }
     // methods: {
