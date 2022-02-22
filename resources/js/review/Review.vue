@@ -38,7 +38,7 @@
                                 <textarea name="content" cols="30" rows="10" class="form-control" v-model="review.content"></textarea>
                             </div>
                             <div class="row">
-                                <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                                <button class="btn btn-lg btn-primary btn-block" @click.prevent="submit" :disabled="isLoading">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -56,8 +56,10 @@ export default {
 
         return {
             review:{
+            id: null,
             rating: 5,
             content: null
+            
             },
             existingReview:null,
             isLoading: false,
@@ -67,15 +69,16 @@ export default {
         
     },
     created(){
+        this.review.id = this.$route.params.id;
         this,this.isLoading = true;
         //1. If review already exists(in reviews table id)
-        axios.get(`/api/reviews/${this.$route.params.id}`)
+        axios.get(`/api/reviews/${this.review.id}`)
              .then(response =>{
                  this.existingReview = response.data.data;
            }).catch(error =>{
                if(is404(error)){
                     //2. Fetch a booking by a review key
-                   return axios.get(`/api/booking-by-review/${this.$route.params.id}`)
+                   return axios.get(`/api/booking-by-review/${this.review.id}`)
                                .then(response =>{
                                    this.booking = response.data.data;
                                }).catch(error =>{
@@ -109,6 +112,20 @@ export default {
         },
         twoColumns(){
             return this.isLoading || !this.alreadyReviewed
+        }
+    },
+    methods:{
+        submit(){
+            this.isLoading = true;
+            return axios.post(`/api/reviews/`, this.review)
+                        .then(response =>{
+                            console.log(response);
+                        })
+                        .catch(error =>{
+                            this.errorCheck = true;
+                        }).then(()=>{
+                            this.isLoading = false;
+                        })
         }
     }
     // methods: {

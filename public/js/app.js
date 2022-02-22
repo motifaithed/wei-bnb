@@ -5664,6 +5664,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       review: {
+        id: null,
         rating: 5,
         content: null
       },
@@ -5676,14 +5677,15 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
+    this.review.id = this.$route.params.id;
     this, this.isLoading = true; //1. If review already exists(in reviews table id)
 
-    axios.get("/api/reviews/".concat(this.$route.params.id)).then(function (response) {
+    axios.get("/api/reviews/".concat(this.review.id)).then(function (response) {
       _this.existingReview = response.data.data;
     })["catch"](function (error) {
       if ((0,_shared_utils_response__WEBPACK_IMPORTED_MODULE_0__.is404)(error)) {
         //2. Fetch a booking by a review key
-        return axios.get("/api/booking-by-review/".concat(_this.$route.params.id)).then(function (response) {
+        return axios.get("/api/booking-by-review/".concat(_this.review.id)).then(function (response) {
           _this.booking = response.data.data;
         })["catch"](function (error) {
           _this.errorCheck = !(0,_shared_utils_response__WEBPACK_IMPORTED_MODULE_0__.is404)(error); //    is404(error) ? {} : (this.errorCheck = true);
@@ -5711,6 +5713,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     twoColumns: function twoColumns() {
       return this.isLoading || !this.alreadyReviewed;
+    }
+  },
+  methods: {
+    submit: function submit() {
+      var _this2 = this;
+
+      this.isLoading = true;
+      return axios.post("/api/reviews/", this.review).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        _this2.errorCheck = true;
+      }).then(function () {
+        _this2.isLoading = false;
+      });
     }
   } // methods: {
   //     onRatingChanged(rating){
@@ -51400,7 +51416,23 @@ var render = function () {
                               }),
                             ]),
                             _vm._v(" "),
-                            _vm._m(0),
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-lg btn-primary btn-block",
+                                  attrs: { disabled: _vm.isLoading },
+                                  on: {
+                                    click: function ($event) {
+                                      $event.preventDefault()
+                                      return _vm.submit.apply(null, arguments)
+                                    },
+                                  },
+                                },
+                                [_vm._v("Submit")]
+                              ),
+                            ]),
                           ]),
                     ]),
               ]
@@ -51409,18 +51441,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("button", { staticClass: "btn btn-lg btn-primary btn-block" }, [
-        _vm._v("Submit"),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
