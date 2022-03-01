@@ -95,36 +95,26 @@ export default {
       sending: false
     };
   },
-  created() {
+  async created() {
     this.review.id = this.$route.params.id;
-    this, (this.isLoading = true);
+    this.isLoading = true;
     //1. If review already exists(in reviews table id)
-    axios
-      .get(`/api/reviews/${this.review.id}`)
-      .then((response) => {
-        this.existingReview = response.data.data;
-      })
-      .catch((error) => {
-        if (is404(error)) {
-          //2. Fetch a booking by a review key
-          return axios
-            .get(`/api/booking-by-review/${this.review.id}`)
-            .then((response) => {
-              this.booking = response.data.data;
-            })
-            .catch((error) => {
-              this.errorCheck = !is404(error);
-              //    is404(error) ? {} : (this.errorCheck = true);
-              //    if(!is404(error)){
-              //        this.errorCheck = true;
-              //    }
-            });
+    try {
+        this.existingReview = (await axios.get(`/api/reviews/${this.review.id}`)).data.data;
+    }catch(error){
+        if(is404(error)){
+            try{
+                this.booking = (await axios.get(`/api/booking-by-review/${this.review.id}`)).data.data;
+            }catch(error){
+                this.errorCheck = !is404(error);
+            }
+            
+        }else{
+            this.errorCheck = true
         }
-      })
-      .then(() => {
-        this.isLoading = false;
-      });
-  },
+    }
+    this.isLoading = false;
+},
   computed: {
     alreadyReviewed() {
       return this.hasReview || !this.booking;
@@ -158,7 +148,6 @@ export default {
             const errors = error.response.data.errors;
             if (errors["content"] && _.size(errors)) {
               this.errors = errors;
-               console.log('its here');
               return;
             }
           }
