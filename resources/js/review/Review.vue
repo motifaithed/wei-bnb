@@ -46,7 +46,7 @@
     </div>
 </template>
 <script>
-import {is404} from '../shared/utils/response';
+import {is404, is422} from '../shared/utils/response';
 
 export default {
 
@@ -62,7 +62,8 @@ export default {
             existingReview:null,
             isLoading: false,
             booking: null,
-            errorCheck: false
+            errorCheck: false,
+            errors: null
         };
         
     },
@@ -93,7 +94,7 @@ export default {
                  this.isLoading = false;
            });
        
-        //3. Store a review
+       
     },
     computed:{
          alreadyReviewed(){
@@ -114,12 +115,22 @@ export default {
     },
     methods:{
         submit(){
+             //3. Store a review
             this.isLoading = true;
+            this.errors - null;
             return axios.post(`/api/reviews/`, this.review)
                         .then(response =>{
                             console.log(response);
                         })
                         .catch(error =>{
+                            if(is422(error)){
+                                const errors = error.response.data.errors;
+                                if(error["content"] && _.size(errors)){
+                                    this.errors = errors;
+                                    return;
+                                }
+                            }
+
                             this.errorCheck = true;
                         }).then(()=>{
                             this.isLoading = false;

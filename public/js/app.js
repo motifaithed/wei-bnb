@@ -5262,6 +5262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _shared_utils_response__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../shared/utils/response */ "./resources/js/shared/utils/response.js");
 //
 //
 //
@@ -5299,6 +5300,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     bookableId: String
@@ -5321,7 +5323,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/bookables/".concat(this.bookableId, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
         _this.status = response.status;
       })["catch"](function (error) {
-        if (422 == error.response.status) {
+        if ((0,_shared_utils_response__WEBPACK_IMPORTED_MODULE_0__.is422)(error)) {
           _this.errors = error.response.data.errors;
         }
 
@@ -5669,7 +5671,8 @@ __webpack_require__.r(__webpack_exports__);
       existingReview: null,
       isLoading: false,
       booking: null,
-      errorCheck: false
+      errorCheck: false,
+      errors: null
     };
   },
   created: function created() {
@@ -5694,7 +5697,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }).then(function () {
       _this.isLoading = false;
-    }); //3. Store a review
+    });
   },
   computed: {
     alreadyReviewed: function alreadyReviewed() {
@@ -5717,10 +5720,21 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this2 = this;
 
+      //3. Store a review
       this.isLoading = true;
+      this.errors - null;
       return axios.post("/api/reviews/", this.review).then(function (response) {
         console.log(response);
       })["catch"](function (error) {
+        if ((0,_shared_utils_response__WEBPACK_IMPORTED_MODULE_0__.is422)(error)) {
+          var errors = error.response.data.errors;
+
+          if (error["content"] && _.size(errors)) {
+            _this2.errors = errors;
+            return;
+          }
+        }
+
         _this2.errorCheck = true;
       }).then(function () {
         _this2.isLoading = false;
@@ -5918,10 +5932,18 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "is404": () => (/* binding */ is404)
+/* harmony export */   "is404": () => (/* binding */ is404),
+/* harmony export */   "is422": () => (/* binding */ is422)
 /* harmony export */ });
 var is404 = function is404(error) {
-  return error.response && error.response.status && error.response.status == 404;
+  return isErrorWithResponseAndStatus(error) && error.response.status == 404;
+};
+var is422 = function is422(error) {
+  return isErrorWithResponseAndStatus(error) && error.response.status == 422;
+};
+
+var isErrorWithResponseAndStatus = function isErrorWithResponseAndStatus(error) {
+  return error.response && error.response.status;
 };
 
 /***/ }),
