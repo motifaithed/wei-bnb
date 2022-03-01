@@ -5330,7 +5330,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [_shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_2__.validationErrors],
   props: {
-    bookableId: String
+    bookableId: [String, Number]
   },
   data: function data() {
     return {
@@ -5505,7 +5505,7 @@ __webpack_require__.r(__webpack_exports__);
 //import moment from "moment";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    bookableId: String
+    bookableId: [String, Number]
   },
   data: function data() {
     return {
@@ -52175,15 +52175,6 @@ var render = function () {
             attrs: { to: { name: "home" } },
           },
           [_vm._v("Wei-BNB")]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          {
-            staticClass: "btn nav-button",
-            attrs: { to: { name: "bookable" } },
-          },
-          [_vm._v("Second")]
         ),
       ],
       1
