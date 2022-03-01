@@ -56,15 +56,9 @@
                   v-model="review.content"
                   :class="[{ 'is-invalid': this.errorFor('content') }]"
                 ></textarea>
-                <div
-                    class="invalid-feedback"
-                    v-for="(error, index) in this.errorFor('content')"
-                    :key="'content' + index"
-                    >
-                    {{ error }}
-                </div>
-              </div>
-              <div class="row">
+                <v-errors :errors="errorFor('content')"></v-errors>
+            </div>
+            <div class="row">
                 <button
                   class="btn btn-lg btn-primary btn-block"
                   @click.prevent="submit"
