@@ -5334,8 +5334,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      from: null,
-      to: null,
+      from: this.$store.state.lastSearch.from,
+      to: this.$store.state.lastSearch.to,
       loading: false,
       status: null
     };
