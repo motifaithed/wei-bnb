@@ -5369,6 +5369,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -52446,7 +52448,16 @@ var render = function () {
           attrs: { disabled: _vm.loading },
           on: { click: _vm.check },
         },
-        [_vm._v("\n      Check!\n    ")]
+        [
+          !_vm.loading ? _c("span", [_vm._v("Check!")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.loading
+            ? _c("span", [
+                _c("i", { staticClass: "fa-solid fa-circle-notch fa-spin" }),
+                _vm._v("Checking..."),
+              ])
+            : _vm._e(),
+        ]
       ),
     ]),
   ])

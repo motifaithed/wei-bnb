@@ -37,7 +37,9 @@
     </div>
     <div class="d-grid gap-2">
       <button class="btn btn-secondary" v-on:click="check" :disabled="loading">
-        Check!
+          <span v-if="!loading">Check!</span>
+          <span v-if="loading"><i class="fa-solid fa-circle-notch fa-spin"></i>Checking...</span>
+        
       </button>
     </div>
   </div>
