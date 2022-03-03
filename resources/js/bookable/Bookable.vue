@@ -91,18 +91,15 @@ export default {
   },
   computed: {
     ...mapState({
-      lastSearch: "lastSearch",
-      inBasketAlready(state) {
+      lastSearch: "lastSearch"
+    }),
+    inBasketAlready(){
         if (this.bookable == null) {
           return false;
         }
-        // console.log(state.basket.items);
-        return state.basket.items.reduce(
-          (result, item) => result || item.bookable.id == this.bookable.id,
-          false
-        );
-      },
-    }),
+
+        return this.$store.getters.inBasketAlready(this.bookable.id);
+    }
   },
   methods: {
     async checkPrice(hasAvailability) {
