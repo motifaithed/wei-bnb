@@ -20,14 +20,37 @@
           class="mb-4"
         ></availability>
         <div class="d-grid gap-2">
-            <transition name="fade">
-                <price-breakdown v-if="price" :price="price" class="mb-4"></price-breakdown>
-            </transition>
-            <transition name="fade">
-                <button class="btn btn-outline-secondary btn-block" v-if="price" @click="addToBasket">Book Now</button>
-            </transition>
+          <transition name="fade">
+            <price-breakdown
+              v-if="price"
+              :price="price"
+              class="mb-4"
+            ></price-breakdown>
+          </transition>
+          <transition name="fade">
+            <button
+              class="btn btn-outline-secondary btn-block"
+              v-if="price"
+              @click="addToBasket"
+              :disabled="inBasketAlready"
+            >
+              Book Now
+            </button>
+          </transition>
+          <button
+              class="btn btn-outline-secondary btn-block"
+              v-if="inBasketAlready"
+              @click="removeFromBasket"
+              
+            >
+              Remove from basket
+            </button>
+          <div v-if="inBasketAlready" class="mt-4 text-muted warning">
+            Seems like you've added this object to basket already. If you want
+            to change dates, remove from the basket first.
+          </div>
         </div>
-     </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-8">
@@ -49,7 +72,7 @@ export default {
   components: {
     Availability,
     ReviewList,
-    PriceBreakdown
+    PriceBreakdown,
   },
   data() {
     return {
@@ -69,6 +92,16 @@ export default {
   computed: {
     ...mapState({
       lastSearch: "lastSearch",
+      inBasketAlready(state) {
+        if (this.bookable == null) {
+          return false;
+        }
+        // console.log(state.basket.items);
+        return state.basket.items.reduce(
+          (result, item) => result || item.bookable.id == this.bookable.id,
+          false
+        );
+      },
     }),
   },
   methods: {
@@ -89,13 +122,21 @@ export default {
         this.price = null;
       }
     },
-    addToBasket(){
-        this.$store.commit('addToBasket',{
-            bookable:this.bookable,
-            price:this.price,
-            dates: this.lastSearch
-        })
+    addToBasket() {
+      this.$store.commit("addToBasket", {
+        bookable: this.bookable,
+        price: this.price,
+        dates: this.lastSearch,
+      });
+    },
+    removeFromBasket(){
+        this.$store.commit("removeFromBasket", this.bookable.id);
     }
   },
 };
 </script>
+<style scoped>
+.warning {
+  font-size: 0.7rem;
+}
+</style>
