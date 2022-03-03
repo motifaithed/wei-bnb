@@ -73,7 +73,7 @@ export default {
             }
 
             try{
-                this.price = (await axios.get(`api/bookables/${this.bookable.id}/price?from=${this.lastSearch.from}&to=${this.lastSearch.to}`)).data.data;
+                this.price = (await axios.get(`/api/bookables/${this.bookable.id}/price?from=${this.lastSearch.from}&to=${this.lastSearch.to}`)).data.data;
             }catch(error){
                 this.price = null;
             }
